@@ -17,13 +17,9 @@ for file in os.listdir(cds_dir):
     newdir="/mnt/Timina/lmorales/Public/ymez/esantiago/FindClosestRef/data/GenSeqs/nt_seqs_50/" + strain +"/"
     os.mkdir(newdir) #Create a directory with the strain name to store all of the individual gene fasta files
     seqs_index=SeqIO.index(cds_dir + file,"fasta",key_function=get_acc) #Index the cds fasta file to create a rapidly parseable dictionary of the nt sequences
-    #print(type(seqs_index))
-    #print("File to open: " + genids_dir + strain + "_50genes.txt")
     gene_ids_file=open(genids_dir + strain + "_50genes.txt")
     genes_of_interest=gene_ids_file.readlines()
     for gi in genes_of_interest: #Iterate over the list of genes of interest, fetch the nt sequence from the dictionary and write each out in a file
         gi=gi.strip()
-        #print(type(gi))
-        #print("Gene of interest: " + gi)
         gene=seqs_index[gi]
         SeqIO.write(gene,newdir + gi + ".fa","fasta")
